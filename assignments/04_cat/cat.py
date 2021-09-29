@@ -6,10 +6,11 @@ Purpose: to conCATenate files
 """
 
 import argparse
-import os, sys
 
 
 # --------------------------------------------------
+
+
 def get_args():
     """Get command-line arguments"""
 
@@ -20,27 +21,18 @@ def get_args():
 
     parser.add_argument(
         "file",
-        help="A readable file",
-        metavar="FILE",
-        # nargs="+",
-        type=argparse.FileType('rt'),
-        default=None
+	help=("A readable file"),
+	metavar="FILE",
+	nargs="+",
+	type=(argparse.FileType("rt"))
+	)
+
+    parser.add_argument(
+        "-n", "--number", help="Number the lines", action="store_true", default="FALSE"
     )
 
-    parser.add_argument('-n',
-                        '--number',
-                        help='Number the lines',
-                        action='store_true')
-
-    # args = parser.parse_args()
-    
-    # if os.path.isfile(args.file):
-    #     parser.error(f'"{args.file}" is not a file')
-    
-    # args.file = open(args.file)
-    
-    # return args
     return parser.parse_args()
+
 
 # --------------------------------------------------
 def main():
@@ -48,8 +40,14 @@ def main():
 
     args = get_args()
 
-    for i, line in enumerate(args.file, start=1):
-        print(f'{i:6} {line}', end='')
+    for fh in args.file:
+        # for i, line in enumerate(args.file, start=1):
+        for i, line in enumerate(fh, start=1):
+            if args.number is True:
+                print("     {}	{}".format(i, line), end="")
+            else:
+                print(line, end="")
+
 
 # --------------------------------------------------
 if __name__ == "__main__":
