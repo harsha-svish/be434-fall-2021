@@ -37,7 +37,7 @@ def main():
 
 
 # --------------------------------------------------
-def rle(seq):
+def rle(seq: str) -> str:
     "creating RLE"
 
     encoded_dna = ""
@@ -53,7 +53,7 @@ def rle(seq):
                 j = j + 1
             else:
                 break
-        encoded_dna = encoded_dna + ch + str(count)
+        encoded_dna = encoded_dna + ch + (str(count) if count > 1 else "")
         i = j + 1
     return encoded_dna
 
